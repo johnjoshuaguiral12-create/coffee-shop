@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Menu item",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "price": { "type": "number" },
+        "image_url": { "type": "string", "maxLength": 1024 },
+        "category_id": { "type": "string", "maxLength": 128 },
+        "customizations": { "type": "array" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "category_id", "isActive"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Menu category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 50 },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["name", "order", "isActive"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string", "maxLength": 100 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerEmail": { "type": "string", "maxLength": 200 },
+        "customerPhone": { "type": "string", "maxLength": 20 },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "paymentStatus": { "type": "string", "maxLength": 50 },
+        "orderStatus": { "type": "string", "maxLength": 50 },
+        "orderType": { "type": "string", "maxLength": 50 },
+        "address": { "type": "string", "maxLength": 500 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "paymentReference": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["orderId", "customerName", "customerPhone", "items", "totalAmount", "paymentMethod", "paymentStatus", "orderStatus", "orderType"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Global shop settings",
+      "type": "object",
+      "properties": {
+        "webhookUrl": { "type": "string", "maxLength": 1024 },
+        "gcashQrUrl": { "type": "string", "maxLength": 1024 },
+        "gcashNumber": { "type": "string", "maxLength": 50 }
+      }
+    },
+    "UserRole": {
+      "title": "UserRole",
+      "description": "Admin privileges",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "maxLength": 20 }
+      },
+      "required": ["role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Coffee shop products"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Menu categories"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "Shop configurations"
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/UserRole" },
+      "description": "Admin roles by user ID"
+    }
+  }
+}
