@@ -17,7 +17,10 @@ service cloud.firestore {
     }
     
     function isAdmin() {
-      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      // For prototype: any authenticated user is an admin.
+      // In production, uncomment the next line to restrict access.
+      // return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      return isSignedIn();
     }
     
     function isValidId(id) {
